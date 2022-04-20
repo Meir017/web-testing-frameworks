@@ -7,9 +7,9 @@ export interface LaunchBrowserScenarios {
 
 export interface SimpleScenarios {
     screenshot(): Promise<void>;
-    navigation(): Promise<void>;
+    pageTitle(): Promise<void>;
     click(): Promise<void>;
-    type(): Promise<void>;
+    formSubmission(): Promise<void>;
     waitForLoad(): Promise<void>;
     waitForElement(): Promise<void>;
 }
