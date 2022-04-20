@@ -1,3 +1,8 @@
+export interface Scenarios {
+    launchBrowser: LaunchBrowserScenarios;
+    simple: SimpleScenarios;
+}
+
 export interface LaunchBrowserScenarios {
     firefox(): Promise<void>;
     chrome(): Promise<void>;

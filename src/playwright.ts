@@ -1,7 +1,7 @@
 import * as playwright from 'playwright';
-import { LaunchBrowserScenarios, SimpleScenarios } from './scenarios';
+import * as base from './scenarios';
 
-export class PlaywrightLaunchBrowserScenarios implements LaunchBrowserScenarios {
+export class PlaywrightLaunchBrowserScenarios implements base.LaunchBrowserScenarios {
     async firefox() {
         await playwright.firefox.launch();
     }
@@ -20,7 +20,7 @@ export class PlaywrightLaunchBrowserScenarios implements LaunchBrowserScenarios 
     }
 }
 
-export class PlaywrightSimpleScenarios implements SimpleScenarios {
+export class PlaywrightSimpleScenarios implements base.SimpleScenarios {
     async screenshot() {
         const browser = await playwright.chromium.launch();
         const page = await browser.newPage();
@@ -72,3 +72,8 @@ export class PlaywrightSimpleScenarios implements SimpleScenarios {
         const text = await element.textContent();
     }
 }
+
+export const Scenarios: base.Scenarios = {
+    launchBrowser: new PlaywrightLaunchBrowserScenarios(),
+    simple: new PlaywrightSimpleScenarios()
+};
