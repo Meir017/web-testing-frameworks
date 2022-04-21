@@ -9,15 +9,19 @@ export class SeleniumLaunchBrowser implements LaunchBrowser {
         return 'selenium';
     }
     async firefox() {
-        await new Builder().forBrowser(Browser.FIREFOX).build();
+        const driver = await new Builder().forBrowser(Browser.FIREFOX).build();
+        await driver.quit();
     }
     async chrome() {
-        await new Builder().forBrowser(Browser.CHROME).build();
+        const driver = await new Builder().forBrowser(Browser.CHROME).build();
+        await driver.quit();
     }
     async webkit() {
-        await new Builder().forBrowser(Browser.SAFARI).build();
+        const driver = await new Builder().forBrowser(Browser.SAFARI).build();
+        await driver.quit();
     }
     async edge() {
-        await new Builder().forBrowser(Browser.EDGE).build();
+        const driver = await new Builder().forBrowser(Browser.EDGE).build();
+        await driver.quit();
     }
 }
