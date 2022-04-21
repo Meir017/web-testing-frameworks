@@ -6,19 +6,23 @@ export class PlaywrightLaunchBrowser implements LaunchBrowser {
         return 'playwright';
     }
     async firefox() {
-        await playwright.firefox.launch();
+        const browser = await playwright.firefox.launch();
+        await browser.close();
     }
     async chrome() {
-        await playwright.chromium.launch({
+        const browser = await playwright.chromium.launch({
             channel: 'chrome'
         });
+        await browser.close();
     }
     async webkit() {
-        await playwright.webkit.launch();
+        const browser = await playwright.webkit.launch();
+        await browser.close();
     }
     async edge() {
-        await playwright.chromium.launch({
+        const browser = await playwright.chromium.launch({
             channel: 'msedge'
         });
+        await browser.close();
     }
 }
