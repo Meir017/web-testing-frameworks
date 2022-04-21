@@ -4,6 +4,8 @@ import { Simple } from './base';
 import fs from 'fs';
 import path from 'path';
 
+import 'chromedriver';
+
 export class SeleniumSimple implements Simple {
     get name(): string {
         return 'selenium';

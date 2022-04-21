@@ -2,6 +2,8 @@ import * as seleniumWebdriver  from 'selenium-webdriver';
 const { Builder, Browser } = seleniumWebdriver;
 import { LaunchBrowser } from './base';
 
+import 'chromedriver';
+
 export class SeleniumLaunchBrowser implements LaunchBrowser {
     get name(): string {
         return 'selenium';
