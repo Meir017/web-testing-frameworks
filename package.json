@@ -12,7 +12,6 @@
   "license": "ISC",
   "dependencies": {
     "chromedriver": "^100.0.0",
-    "cypress": "^9.5.4",
     "playwright": "^1.21.1",
     "puppeteer": "^13.5.2",
     "selenium-webdriver": "^4.1.1",
