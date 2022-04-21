@@ -7,23 +7,27 @@ export class WebdriverioLaunchBrowser implements LaunchBrowser {
         return 'webdriverio';
     }
     async firefox() {
-        await remote({
+        const browser = await remote({
             capabilities: { browserName: 'firefox' }
-        })
+        });
+        await browser.deleteSession();
     }
     async chrome() {
-        await remote({
+        const browser = await remote({
             capabilities: { browserName: 'chrome' }
-        })
+        });
+        await browser.deleteSession();
     }
     async webkit() {
-        await remote({
+        const browser = await remote({
             capabilities: { browserName: 'safari' }
-        })
+        });
+        await browser.deleteSession();
     }
     async edge() {
-        await remote({
+        const browser = await remote({
             capabilities: { browserName: 'MicrosoftEdge' }
-        })
+        });
+        await browser.deleteSession();
     }
 }
