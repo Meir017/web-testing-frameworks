@@ -1,25 +1,10 @@
-import { Builder, Browser, By, until, promise } from 'selenium-webdriver';
-import * as base from './scenarios';
+import * as seleniumWebdriver  from 'selenium-webdriver';
+const { Builder, Browser, By, until } = seleniumWebdriver;
+import { Simple } from './base';
 import fs from 'fs';
 import path from 'path';
 
-export class SeleniumLaunchBrowserScenarios implements base.LaunchBrowserScenarios {
-    async firefox() {
-        require('firefox')
-        await new Builder().forBrowser(Browser.FIREFOX).build();
-    }
-    async chrome() {
-        await new Builder().forBrowser(Browser.CHROME).build();
-    }
-    async webkit() {
-        await new Builder().forBrowser(Browser.SAFARI).build();
-    }
-    async edge() {
-        await new Builder().forBrowser(Browser.EDGE).build();
-    }
-}
-
-export class SeleniumSimpleScenarios implements base.SimpleScenarios {
+export class SeleniumSimple implements Simple {
     async screenshot() {
         const driver = new Builder().forBrowser(Browser.CHROME).build();
         await driver.get('http://whatsmyuseragent.org/');

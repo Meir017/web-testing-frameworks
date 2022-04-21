@@ -1,26 +1,7 @@
 import * as playwright from 'playwright';
-import * as base from './scenarios';
+import { Simple } from './base';
 
-export class PlaywrightLaunchBrowserScenarios implements base.LaunchBrowserScenarios {
-    async firefox() {
-        await playwright.firefox.launch();
-    }
-    async chrome() {
-        await playwright.chromium.launch({
-            channel: 'chrome'
-        });
-    }
-    async webkit() {
-        await playwright.webkit.launch();
-    }
-    async edge() {
-        await playwright.chromium.launch({
-            channel: 'msedge'
-        });
-    }
-}
-
-export class PlaywrightSimpleScenarios implements base.SimpleScenarios {
+export class PlaywrightSimple implements Simple {
     async screenshot() {
         const browser = await playwright.chromium.launch();
         const page = await browser.newPage();
@@ -69,11 +50,6 @@ export class PlaywrightSimpleScenarios implements base.SimpleScenarios {
         const page = await browser.newPage();
         await page.goto('https://testpages.herokuapp.com/styled/progress-bars-sync.html');
         const element = await page.locator('#status', { hasText: 'Stopped' }).elementHandle();
-        const text = await element.textContent();
+        const text = await element!.textContent();
     }
 }
-
-export const Scenarios: base.Scenarios = {
-    launchBrowser: new PlaywrightLaunchBrowserScenarios(),
-    simple: new PlaywrightSimpleScenarios()
-};
