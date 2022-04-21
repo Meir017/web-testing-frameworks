@@ -9,6 +9,14 @@ async firefox() {
     await playwright.firefox.launch();
 }
 ```
+#### puppeteer
+```ts
+async firefox() {
+    await puppeteer.launch({
+        product: 'firefox'
+    });
+}
+```
 #### selenium
 ```ts
 async firefox() {
@@ -21,6 +29,14 @@ async firefox() {
 ```ts
 async chrome() {
     await playwright.chromium.launch({
+        channel: 'chrome'
+    });
+}
+```
+#### puppeteer
+```ts
+async chrome() {
+    await puppeteer.launch({
         channel: 'chrome'
     });
 }
@@ -39,6 +55,12 @@ async webkit() {
     await playwright.webkit.launch();
 }
 ```
+#### puppeteer
+```ts
+async webkit() {
+    // Not Supported
+}
+```
 #### selenium
 ```ts
 async webkit() {
@@ -52,6 +74,15 @@ async webkit() {
 async edge() {
     await playwright.chromium.launch({
         channel: 'msedge'
+    });
+}
+```
+#### puppeteer
+```ts
+async edge() {
+    await puppeteer.launch({
+        // no standard way to launch edge yes, see https://github.com/puppeteer/puppeteer/issues/8259
+        executablePath: 'C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe'
     });
 }
 ```
