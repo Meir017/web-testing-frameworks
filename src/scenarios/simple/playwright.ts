@@ -2,6 +2,9 @@ import * as playwright from 'playwright';
 import { Simple } from './base';
 
 export class PlaywrightSimple implements Simple {
+    get name(): string {
+        return 'playwright';
+    }
     async screenshot() {
         const browser = await playwright.chromium.launch();
         const page = await browser.newPage();

@@ -2,6 +2,9 @@ import * as playwright from 'playwright';
 import { LaunchBrowser } from './base';
 
 export class PlaywrightLaunchBrowser implements LaunchBrowser {
+    get name(): string {
+        return 'playwright';
+    }
     async firefox() {
         await playwright.firefox.launch();
     }

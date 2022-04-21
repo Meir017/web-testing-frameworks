@@ -1,4 +1,7 @@
 export class Simple {
+    get name(): string {
+        throw new Error('Not implemented');
+    }
     async screenshot() {
         throw new Error('Not implemented');
     }

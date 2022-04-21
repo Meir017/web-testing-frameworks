@@ -5,6 +5,9 @@ import fs from 'fs';
 import path from 'path';
 
 export class SeleniumSimple implements Simple {
+    get name(): string {
+        return 'selenium';
+    }
     async screenshot() {
         const driver = new Builder().forBrowser(Browser.CHROME).build();
         await driver.get('http://whatsmyuseragent.org/');

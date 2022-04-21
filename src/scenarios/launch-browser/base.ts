@@ -1,4 +1,7 @@
 export class LaunchBrowser {
+    get name(): string {
+        throw new Error('Not implemented');
+    }
     async firefox() {
         throw new Error('Not implemented');
     }

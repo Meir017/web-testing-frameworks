@@ -3,6 +3,9 @@ const { Builder, Browser } = seleniumWebdriver;
 import { LaunchBrowser } from './base';
 
 export class SeleniumLaunchBrowser implements LaunchBrowser {
+    get name(): string {
+        return 'selenium';
+    }
     async firefox() {
         await new Builder().forBrowser(Browser.FIREFOX).build();
     }
