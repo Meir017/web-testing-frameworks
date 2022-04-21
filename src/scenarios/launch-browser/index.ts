@@ -1,6 +1,7 @@
 import { PlaywrightLaunchBrowser } from './playwright';
 import { SeleniumLaunchBrowser } from './selenium';
 import { PuppeteerLaunchBrowser } from './puppeteer';
+import { WebdriverioLaunchBrowser } from './webdriverio';
 import { LaunchBrowser } from './base';
 import { getMethodsFromType } from '../../utils';
 
@@ -10,5 +11,6 @@ export const implementations = [
     new PlaywrightLaunchBrowser(),
     new PuppeteerLaunchBrowser(),
     new SeleniumLaunchBrowser(),
+    new WebdriverioLaunchBrowser(),
 ];
 export const methods = getMethodsFromType(LaunchBrowser);

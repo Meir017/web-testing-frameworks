@@ -23,6 +23,14 @@ async firefox() {
     await new Builder().forBrowser(Browser.FIREFOX).build();
 }
 ```
+#### webdriverio
+```ts
+async firefox() {
+    await remote({
+        capabilities: { browserName: 'firefox' }
+    });
+}
+```
 ---
 ### chrome
 #### playwright
@@ -47,6 +55,14 @@ async chrome() {
     await new Builder().forBrowser(Browser.CHROME).build();
 }
 ```
+#### webdriverio
+```ts
+async chrome() {
+    await remote({
+        capabilities: { browserName: 'chrome' }
+    });
+}
+```
 ---
 ### webkit
 #### playwright
@@ -65,6 +81,14 @@ async webkit() {
 ```ts
 async webkit() {
     await new Builder().forBrowser(Browser.SAFARI).build();
+}
+```
+#### webdriverio
+```ts
+async webkit() {
+    await remote({
+        capabilities: { browserName: 'safari' }
+    });
 }
 ```
 ---
@@ -90,6 +114,14 @@ async edge() {
 ```ts
 async edge() {
     await new Builder().forBrowser(Browser.EDGE).build();
+}
+```
+#### webdriverio
+```ts
+async edge() {
+    await remote({
+        capabilities: { browserName: 'MicrosoftEdge' }
+    });
 }
 ```
 ---
