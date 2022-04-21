@@ -6,29 +6,33 @@ Launching new instance of a web browser
 #### playwright
 ```ts
 async firefox() {
-    await playwright.firefox.launch();
+    const browser = await playwright.firefox.launch();
+    await browser.close();
 }
 ```
 #### puppeteer
 ```ts
 async firefox() {
-    await puppeteer.launch({
+    const browser = await puppeteer.launch({
         product: 'firefox'
     });
+    await browser.close();
 }
 ```
 #### selenium
 ```ts
 async firefox() {
-    await new Builder().forBrowser(Browser.FIREFOX).build();
+    const driver = await new Builder().forBrowser(Browser.FIREFOX).build();
+    await driver.quit();
 }
 ```
 #### webdriverio
 ```ts
 async firefox() {
-    await remote({
+    const browser = await remote({
         capabilities: { browserName: 'firefox' }
     });
+    await browser.deleteSession();
 }
 ```
 ---
@@ -36,31 +40,35 @@ async firefox() {
 #### playwright
 ```ts
 async chrome() {
-    await playwright.chromium.launch({
+    const browser = await playwright.chromium.launch({
         channel: 'chrome'
     });
+    await browser.close();
 }
 ```
 #### puppeteer
 ```ts
 async chrome() {
-    await puppeteer.launch({
+    const browser = await puppeteer.launch({
         channel: 'chrome'
     });
+    await browser.close();
 }
 ```
 #### selenium
 ```ts
 async chrome() {
-    await new Builder().forBrowser(Browser.CHROME).build();
+    const driver = await new Builder().forBrowser(Browser.CHROME).build();
+    await driver.quit();
 }
 ```
 #### webdriverio
 ```ts
 async chrome() {
-    await remote({
+    const browser = await remote({
         capabilities: { browserName: 'chrome' }
     });
+    await browser.deleteSession();
 }
 ```
 ---
@@ -68,7 +76,8 @@ async chrome() {
 #### playwright
 ```ts
 async webkit() {
-    await playwright.webkit.launch();
+    const browser = await playwright.webkit.launch();
+    await browser.close();
 }
 ```
 #### puppeteer
@@ -80,15 +89,17 @@ async webkit() {
 #### selenium
 ```ts
 async webkit() {
-    await new Builder().forBrowser(Browser.SAFARI).build();
+    const driver = await new Builder().forBrowser(Browser.SAFARI).build();
+    await driver.quit();
 }
 ```
 #### webdriverio
 ```ts
 async webkit() {
-    await remote({
+    const browser = await remote({
         capabilities: { browserName: 'safari' }
     });
+    await browser.deleteSession();
 }
 ```
 ---
@@ -96,32 +107,36 @@ async webkit() {
 #### playwright
 ```ts
 async edge() {
-    await playwright.chromium.launch({
+    const browser = await playwright.chromium.launch({
         channel: 'msedge'
     });
+    await browser.close();
 }
 ```
 #### puppeteer
 ```ts
 async edge() {
-    await puppeteer.launch({
-        // no standard way to launch edge yes, see https://github.com/puppeteer/puppeteer/issues/8259
+    const browser = await puppeteer.launch({
+        // no standard way to launch edge yet, see https://github.com/puppeteer/puppeteer/issues/8259
         executablePath: 'C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe'
     });
+    await browser.close();
 }
 ```
 #### selenium
 ```ts
 async edge() {
-    await new Builder().forBrowser(Browser.EDGE).build();
+    const driver = await new Builder().forBrowser(Browser.EDGE).build();
+    await driver.quit();
 }
 ```
 #### webdriverio
 ```ts
 async edge() {
-    await remote({
+    const browser = await remote({
         capabilities: { browserName: 'MicrosoftEdge' }
     });
+    await browser.deleteSession();
 }
 ```
 ---
