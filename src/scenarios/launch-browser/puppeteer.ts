@@ -6,22 +6,25 @@ export class PuppeteerLaunchBrowser implements LaunchBrowser {
         return 'puppeteer';
     }
     async firefox() {
-        await puppeteer.launch({
+        const browser = await puppeteer.launch({
             product: 'firefox'
         });
+        await browser.close();
     }
     async chrome() {
-        await puppeteer.launch({
+        const browser = await puppeteer.launch({
             channel: 'chrome'
         });
+        await browser.close();
     }
     async webkit() {
         // Not Supported
     }
     async edge() {
-        await puppeteer.launch({
-            // no standard way to launch edge yes, see https://github.com/puppeteer/puppeteer/issues/8259
+        const browser = await puppeteer.launch({
+            // no standard way to launch edge yet, see https://github.com/puppeteer/puppeteer/issues/8259
             executablePath: 'C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe'
         });
+        await browser.close();
     }
 }
