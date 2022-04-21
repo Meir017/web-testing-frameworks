@@ -18,7 +18,12 @@ for (const scenario of scenarios) {
         for (const implementation of scenario.implementations) {
             builder.push(`#### ${implementation.name}`);
             builder.push('```ts');
-            builder.push(`${implementation[method].toString()}`);
+            const functionLines = implementation[method].toString().split(os.EOL);
+            for (let i = 1; i < functionLines.length; i++) {
+                functionLines[i] = functionLines[i].substring(4);
+                
+            }
+            builder.push(functionLines.join(os.EOL));
             builder.push('```');
         }
         
