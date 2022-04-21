@@ -24,17 +24,26 @@ if (isInvalidInput()) {
     process.exit(1);
 }
 
-const scenarioFunction: () => Promise<void> = scenarios.find(scenario => scenario.name === scenarioName).implementations.find(implementation => implementation.name === implementationName)[methodName];
-
-console.info(`Using: 
+console.info(`Running scenario using: 
   implementation: ${implementationName}
   scenario: ${scenarioName}
   method: ${methodName}`);
 
+const implementation = scenarios.find(scenario => scenario.name === scenarioName).implementations.find(implementation => implementation.name === implementationName);
+if (!implementation) {
+    console.error(`No implementation for scenario`);
+    process.exit(1);
+}
+
+const scenarioFunction: () => Promise<void> = implementation[methodName];
+
 scenarioFunction()
-    .then(() => process.exit(0))
+    .then(() => {
+        console.info('Scenario completed successfully');
+        process.exit(0);
+    })
     .catch(err => {
-        console.error('scenario failed', err);
+        console.error('Scenario failed', err);
         process.exit(1);
     });
 
