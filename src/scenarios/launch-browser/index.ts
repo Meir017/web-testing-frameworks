@@ -2,7 +2,7 @@ import { PlaywrightLaunchBrowser } from './playwright';
 import { SeleniumLaunchBrowser } from './selenium';
 import { PuppeteerLaunchBrowser } from './puppeteer';
 import { WebdriverioLaunchBrowser } from './webdriverio';
-import { LaunchBrowser } from './base';
+import { LaunchBrowser, LaunchBrowserRunner } from './base';
 import { getMethodsFromType } from '../../utils';
 
 export const name = 'launch-browser';
@@ -14,3 +14,4 @@ export const implementations = [
     new WebdriverioLaunchBrowser(),
 ];
 export const methods = getMethodsFromType(LaunchBrowser);
+export const runner = LaunchBrowserRunner;

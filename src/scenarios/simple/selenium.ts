@@ -10,10 +10,10 @@ export class SeleniumSimple extends Simple {
     get name(): string {
         return 'selenium';
     }
-    async screenshot() {
+    async screenshot(url: string, fileName: string) {
         const driver = new Builder().forBrowser(Browser.CHROME).build();
-        await driver.get('http://whatsmyuseragent.org/');
-        await driver.takeScreenshot().then(image => fs.promises.writeFile('example.png', image, 'base64'));
+        await driver.get(url);
+        await driver.takeScreenshot().then(image => fs.promises.writeFile(fileName, image, 'base64'));
     }
     async pageTitle() {
         const driver = new Builder().forBrowser(Browser.CHROME).build();

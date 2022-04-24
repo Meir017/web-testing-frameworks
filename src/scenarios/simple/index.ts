@@ -1,6 +1,6 @@
 import { PlaywrightSimple } from './playwright';
 import { SeleniumSimple } from './selenium';
-import { Simple } from './base';
+import { Simple, SimpleRunner } from './base';
 import { getMethodsFromType } from '../../utils';
 
 export const name = 'simple';
@@ -10,3 +10,4 @@ export const implementations = [
     new SeleniumSimple(),
 ];
 export const methods = getMethodsFromType(Simple);
+export const runner = SimpleRunner;

@@ -29,13 +29,16 @@ console.info(`Running scenario using:
   scenario: ${scenarioName}
   method: ${methodName}`);
 
+const scenario = scenarios.find(scenario => scenario.name === scenarioName);
 const implementation = scenarios.find(scenario => scenario.name === scenarioName).implementations.find(implementation => implementation.name === implementationName);
 if (!implementation) {
     console.error(`No implementation for scenario`);
     process.exit(1);
 }
 
-const scenarioFunction: () => Promise<void> = implementation[methodName];
+const runner = new scenario.runner(implementation);
+
+const scenarioFunction: () => Promise<void> = runner[methodName].bind(runner);
 
 scenarioFunction()
     .then(() => {

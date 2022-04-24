@@ -5,11 +5,11 @@ export class PlaywrightSimple extends Simple {
     get name(): string {
         return 'playwright';
     }
-    async screenshot() {
+    async screenshot(url: string, fileName: string) {
         const browser = await playwright.chromium.launch();
         const page = await browser.newPage();
-        await page.goto('http://whatsmyuseragent.org/');
-        await page.screenshot({ path: `example.png` });
+        await page.goto(url);
+        await page.screenshot({ path: fileName });
     }
 
     async pageTitle() {
