@@ -146,48 +146,50 @@ Simple scenarios of browser automation
 ### screenshot
 #### playwright
 ```ts
-async screenshot() {
+async screenshot(url, fileName) {
     const browser = await playwright.chromium.launch();
     const page = await browser.newPage();
-    await page.goto('http://whatsmyuseragent.org/');
-    await page.screenshot({ path: `example.png` });
+    await page.goto(url);
+    await page.screenshot({ path: fileName });
 }
 ```
 #### selenium
 ```ts
-async screenshot() {
-    const driver = new Builder().forBrowser(Browser.CHROME).build();
-    await driver.get('http://whatsmyuseragent.org/');
-    await driver.takeScreenshot().then(image => fs_1.default.promises.writeFile('example.png', image, 'base64'));
+async screenshot(url, fileName) {
+    return runWithChrome(async (driver) => {
+        await driver.get(url);
+        await driver.takeScreenshot().then(image => fs.promises.writeFile(fileName, image, 'base64'));
+    });
 }
 ```
 ---
 ### pageTitle
 #### playwright
 ```ts
-async pageTitle() {
+async pageTitle(url) {
     const browser = await playwright.chromium.launch();
     const page = await browser.newPage();
-    await page.goto('https://testpages.herokuapp.com/styled/index.html');
-    const title = await page.title();
+    await page.goto(url);
+    return await page.title();
 }
 ```
 #### selenium
 ```ts
-async pageTitle() {
-    const driver = new Builder().forBrowser(Browser.CHROME).build();
-    await driver.get('https://testpages.herokuapp.com/styled/index.html');
-    const title = await driver.getTitle();
+async pageTitle(url) {
+    return runWithChrome(async (driver) => {
+        await driver.get(url);
+        return await driver.getTitle();
+    });
 }
 ```
 ---
 ### click
 #### playwright
 ```ts
-async click() {
+async click(url) {
     const browser = await playwright.chromium.launch();
     const page = await browser.newPage();
-    await page.goto('https://testpages.herokuapp.com/styled/dynamic-buttons-simple.html');
+    await page.goto(url);
     await page.click('#button00');
     await page.click('#button01');
     await page.click('#button02');
@@ -196,23 +198,24 @@ async click() {
 ```
 #### selenium
 ```ts
-async click() {
-    const driver = new Builder().forBrowser(Browser.CHROME).build();
-    await driver.get('https://testpages.herokuapp.com/styled/dynamic-buttons-simple.html');
-    await driver.findElement(By.id('button00')).then(element => element.click());
-    await driver.findElement(By.id('button01')).then(element => element.click());
-    await driver.wait(until.elementLocated(By.id('button02'))).then(element => element.click());
-    await driver.wait(until.elementLocated(By.id('button03'))).then(element => element.click());
+async click(url) {
+    return runWithChrome(async (driver) => {
+        await driver.get(url);
+        await driver.findElement(By.id('button00')).then(element => element.click());
+        await driver.findElement(By.id('button01')).then(element => element.click());
+        await driver.wait(until.elementLocated(By.id('button02'))).then(element => element.click());
+        await driver.wait(until.elementLocated(By.id('button03'))).then(element => element.click());
+    });
 }
 ```
 ---
 ### formSubmission
 #### playwright
 ```ts
-async formSubmission() {
+async formSubmission(url) {
     const browser = await playwright.chromium.launch();
     const page = await browser.newPage();
-    await page.goto('https://testpages.herokuapp.com/styled/basic-html-form-test.html');
+    await page.goto(url);
     await page.type('[name="username"]', 'John Doe');
     await page.type('[name="password"]', '123456');
     await page.type('[name="comments"]', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.');
@@ -227,63 +230,66 @@ async formSubmission() {
 ```
 #### selenium
 ```ts
-async formSubmission() {
-    const driver = new Builder().forBrowser(Browser.CHROME).build();
-    await driver.get('https://testpages.herokuapp.com/styled/basic-html-form-test.html');
-    await driver.findElement(By.name('username')).then(element => element.sendKeys('John Doe'));
-    await driver.findElement(By.name('password')).then(element => element.sendKeys('123456'));
-    await driver.findElement(By.name('comments')).then(element => element.sendKeys('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'));
-    await driver.findElement(By.name('filename')).then(element => element.sendKeys(path_1.default.resolve("./file.txt")));
-    await driver.findElement(By.css('[name="checkboxes[]"][value=cb2]')).then(element => element.click());
-    await driver.findElement(By.css('[name="checkboxes[]"][value=cb3]')).then(element => element.click());
-    await driver.findElement(By.css('[name="radioval"][value=rd1]')).then(element => element.click());
-    for (const option of await driver.findElements(By.css('[name="multipleselect[]"] > option'))) {
-        const isSelected = await option.isSelected();
-        const value = await option.getAttribute('value');
-        if ((['ms2', 'ms3'].includes(value) && !isSelected)
-            || (!['ms2', 'ms3'].includes(value) && isSelected)) {
-            await option.click();
+async formSubmission(url) {
+    return runWithChrome(async (driver) => {
+        await driver.get(url);
+        await driver.findElement(By.name('username')).then(element => element.sendKeys('John Doe'));
+        await driver.findElement(By.name('password')).then(element => element.sendKeys('123456'));
+        await driver.findElement(By.name('comments')).then(element => element.sendKeys('Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'));
+        await driver.findElement(By.name('filename')).then(element => element.sendKeys(path.resolve("./file.txt")));
+        await driver.findElement(By.css('[name="checkboxes[]"][value=cb2]')).then(element => element.click());
+        await driver.findElement(By.css('[name="checkboxes[]"][value=cb3]')).then(element => element.click());
+        await driver.findElement(By.css('[name="radioval"][value=rd1]')).then(element => element.click());
+        for (const option of await driver.findElements(By.css('[name="multipleselect[]"] > option'))) {
+            const isSelected = await option.isSelected();
+            const value = await option.getAttribute('value');
+            if ((['ms2', 'ms3'].includes(value) && !isSelected)
+                || (!['ms2', 'ms3'].includes(value) && isSelected)) {
+                await option.click();
+            }
         }
-    }
-    await driver.findElement(By.css('input[value="submit"]')).then(element => element.submit());
+        await driver.findElement(By.css('input[value="submit"]')).then(element => element.submit());
+    });
 }
 ```
 ---
 ### waitForLoad
 #### playwright
 ```ts
-async waitForLoad() {
+async waitForLoad(url) {
     const browser = await playwright.chromium.launch();
     const page = await browser.newPage();
-    await page.goto('https://www.youtube.com/c/GitHub/videos'); // auto-waits for page load
+    await page.goto(url);
 }
 ```
 #### selenium
 ```ts
-async waitForLoad() {
-    const driver = new Builder().forBrowser(Browser.CHROME).build();
-    await driver.get('https://www.youtube.com/c/GitHub/videos');
+async waitForLoad(url) {
+    return runWithChrome(async (driver) => {
+        await driver.get(url);
+    });
 }
 ```
 ---
 ### waitForElement
 #### playwright
 ```ts
-async waitForElement() {
+async waitForElement(url, expectedText) {
     const browser = await playwright.chromium.launch();
     const page = await browser.newPage();
-    await page.goto('https://testpages.herokuapp.com/styled/progress-bars-sync.html');
-    const element = await page.locator('#status', { hasText: 'Stopped' }).elementHandle();
-    const text = await element.textContent();
+    await page.goto(url);
+    const element = await page.locator('#status', { hasText: expectedText }).elementHandle();
+    return await element.textContent();
 }
 ```
 #### selenium
 ```ts
-async waitForElement() {
-    const driver = new Builder().forBrowser(Browser.CHROME).build();
-    await driver.get('https://testpages.herokuapp.com/styled/progress-bars-sync.html');
-    const element = await driver.wait(until.elementTextIs(driver.findElement(By.css('#status')), 'Stopped'));
-    const text = await element.getText();
+async waitForElement(url, expectedText) {
+    return runWithChrome(async (driver) => {
+        await driver.get(url);
+        const element = await driver.wait(until.elementTextIs(driver.findElement(By.css('#status')), expectedText));
+        return await element.getText();
+    });
 }
 ```
 ---
