@@ -4,7 +4,7 @@ import { LaunchBrowser } from './base';
 
 import 'chromedriver';
 
-export class SeleniumLaunchBrowser implements LaunchBrowser {
+export class SeleniumLaunchBrowser extends LaunchBrowser {
     get name(): string {
         return 'selenium';
     }

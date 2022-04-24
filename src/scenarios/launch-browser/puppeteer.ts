@@ -1,7 +1,7 @@
 import * as puppeteer from 'puppeteer';
 import { LaunchBrowser } from './base';
 
-export class PuppeteerLaunchBrowser implements LaunchBrowser {
+export class PuppeteerLaunchBrowser extends LaunchBrowser {
     get name(): string {
         return 'puppeteer';
     }

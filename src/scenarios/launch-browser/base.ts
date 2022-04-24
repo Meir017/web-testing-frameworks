@@ -1,4 +1,6 @@
-export class LaunchBrowser {
+import { LoggerBase } from '../../logger-base';
+
+export class LaunchBrowser extends LoggerBase {
     get name(): string {
         throw new Error('Not implemented');
     }

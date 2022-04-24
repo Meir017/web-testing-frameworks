@@ -1,4 +1,6 @@
-export class Simple {
+import { LoggerBase } from '../../logger-base';
+
+export class Simple extends LoggerBase {
     get name(): string {
         throw new Error('Not implemented');
     }

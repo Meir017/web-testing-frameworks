@@ -6,7 +6,7 @@ import path from 'path';
 
 import 'chromedriver';
 
-export class SeleniumSimple implements Simple {
+export class SeleniumSimple extends Simple {
     get name(): string {
         return 'selenium';
     }

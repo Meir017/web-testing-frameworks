@@ -2,7 +2,7 @@ import * as webdriverio from 'webdriverio';
 const { remote } = webdriverio;
 import { LaunchBrowser } from './base';
 
-export class WebdriverioLaunchBrowser implements LaunchBrowser {
+export class WebdriverioLaunchBrowser extends LaunchBrowser {
     get name(): string {
         return 'webdriverio';
     }

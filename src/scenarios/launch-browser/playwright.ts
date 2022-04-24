@@ -1,7 +1,7 @@
 import * as playwright from 'playwright';
 import { LaunchBrowser } from './base';
 
-export class PlaywrightLaunchBrowser implements LaunchBrowser {
+export class PlaywrightLaunchBrowser extends LaunchBrowser {
     get name(): string {
         return 'playwright';
     }

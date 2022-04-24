@@ -1,7 +1,7 @@
 import * as playwright from 'playwright';
 import { Simple } from './base';
 
-export class PlaywrightSimple implements Simple {
+export class PlaywrightSimple extends Simple {
     get name(): string {
         return 'playwright';
     }
