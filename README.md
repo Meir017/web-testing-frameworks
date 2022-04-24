@@ -1,5 +1,17 @@
 # web-testing-frameworks
 Comparing common scenarios using popular web testing frameworks
+
+- [launch-browser.firefox](#firefox)
+- [launch-browser.chrome](#chrome)
+- [launch-browser.webkit](#webkit)
+- [launch-browser.edge](#edge)
+- [simple.screenshot](#screenshot)
+- [simple.pageTitle](#pagetitle)
+- [simple.click](#click)
+- [simple.formSubmission](#formsubmission)
+- [simple.waitForLoad](#waitforload)
+- [simple.waitForElement](#waitforelement)
+---
 ## launch-browser
 Launching new instance of a web browser
 ### firefox

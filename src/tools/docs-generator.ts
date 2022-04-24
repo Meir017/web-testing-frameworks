@@ -6,31 +6,41 @@ import * as os from 'os';
 const builder = [
     '# web-testing-frameworks',
     'Comparing common scenarios using popular web testing frameworks',
+    '',
 ];
 
+const toc = [];
+const scenariosExamples = [];
+
 for (const scenario of scenarios) {
-    builder.push(`## ${scenario.name}`);
-    builder.push(`${scenario.description}`);
+    scenariosExamples.push(`## ${scenario.name}`);
+    scenariosExamples.push(`${scenario.description}`);
 
     for (const method of scenario.methods) {
-        builder.push(`### ${method}`);
+        scenariosExamples.push(`### ${method}`);
+
+        toc.push(`- [${scenario.name}.${method}](#${method.toLowerCase()})`);
 
         for (const implementation of scenario.implementations) {
-            builder.push(`#### ${implementation.name}`);
-            builder.push('```ts');
+            scenariosExamples.push(`#### ${implementation.name}`);
+            scenariosExamples.push('```ts');
             const functionLines = implementation[method].toString().split(os.EOL);
             for (let i = 1; i < functionLines.length; i++) {
                 functionLines[i] = functionLines[i].substring(4);
                 
             }
-            builder.push(functionLines.join(os.EOL));
-            builder.push('```');
+            scenariosExamples.push(functionLines.join(os.EOL));
+            scenariosExamples.push('```');
         }
         
-        builder.push(`---`);
+        scenariosExamples.push(`---`);
     }
 
-    builder.push(`---`);
+    scenariosExamples.push(`---`);
 }
+
+builder.push(...toc);
+builder.push(`---`);
+builder.push(...scenariosExamples);
 
 fs.writeFileSync(path.resolve('README.md'), builder.join(os.EOL));
