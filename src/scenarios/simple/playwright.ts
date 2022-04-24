@@ -12,26 +12,26 @@ export class PlaywrightSimple extends Simple {
         await page.screenshot({ path: fileName });
     }
 
-    async pageTitle() {
+    async pageTitle(url: string) {
         const browser = await playwright.chromium.launch();
         const page = await browser.newPage();
-        await page.goto('https://testpages.herokuapp.com/styled/index.html');
-        const title = await page.title();
+        await page.goto(url);
+        return await page.title();
     }
-    async click() {
+    async click(url: string) {
         const browser = await playwright.chromium.launch();
         const page = await browser.newPage();
-        await page.goto('https://testpages.herokuapp.com/styled/dynamic-buttons-simple.html');
+        await page.goto(url);
         await page.click('#button00');
         await page.click('#button01');
         await page.click('#button02');
         await page.click('#button03');
 
     }
-    async formSubmission() {
+    async formSubmission(url: string) {
         const browser = await playwright.chromium.launch();
         const page = await browser.newPage();
-        await page.goto('https://testpages.herokuapp.com/styled/basic-html-form-test.html');
+        await page.goto(url);
         await page.type('[name="username"]', 'John Doe');
         await page.type('[name="password"]', '123456');
         await page.type('[name="comments"]', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.');
@@ -43,16 +43,16 @@ export class PlaywrightSimple extends Simple {
         await page.selectOption('[name="dropdown"]', 'dd5');
         await page.click('input[value="submit"]');
     }
-    async waitForLoad() {
+    async waitForLoad(url: string) {
         const browser = await playwright.chromium.launch();
         const page = await browser.newPage();
-        await page.goto('https://www.youtube.com/c/GitHub/videos'); // auto-waits for page load
+        await page.goto(url);
     }
-    async waitForElement() {
+    async waitForElement(url: string, expectedText: string) {
         const browser = await playwright.chromium.launch();
         const page = await browser.newPage();
-        await page.goto('https://testpages.herokuapp.com/styled/progress-bars-sync.html');
-        const element = await page.locator('#status', { hasText: 'Stopped' }).elementHandle();
-        const text = await element!.textContent();
+        await page.goto(url);
+        const element = await page.locator('#status', { hasText: expectedText }).elementHandle();
+        return await element!.textContent();
     }
 }

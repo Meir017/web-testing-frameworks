@@ -7,19 +7,19 @@ export class Simple extends LoggerBase {
     async screenshot(url: string, fileName: string) {
         throw new Error('Not implemented');
     }
-    async pageTitle() {
+    async pageTitle(url: string): Promise<string> {
         throw new Error('Not implemented');
     }
-    async click() {
+    async click(url: string) {
         throw new Error('Not implemented');
     }
-    async formSubmission() {
+    async formSubmission(url: string) {
         throw new Error('Not implemented');
     }
-    async waitForLoad() {
+    async waitForLoad(url: string) {
         throw new Error('Not implemented');
     }
-    async waitForElement() {
+    async waitForElement(url: string, expectedText: string): Promise<string> {
         throw new Error('Not implemented');
     }
 }
@@ -38,18 +38,24 @@ export class SimpleRunner {
         return this.simple.screenshot(url, fileName);
     }
     async pageTitle() {
-        throw new Error('Not implemented');
+        const url = 'https://testpages.herokuapp.com/styled/index.html';
+        return this.simple.pageTitle(url);
     }
     async click() {
-        throw new Error('Not implemented');
+        const url = 'https://testpages.herokuapp.com/styled/dynamic-buttons-simple.html';
+        return this.simple.click(url);
     }
     async formSubmission() {
-        throw new Error('Not implemented');
+        const url = 'https://testpages.herokuapp.com/styled/basic-html-form-test.html';
+        return this.simple.formSubmission(url);
     }
     async waitForLoad() {
-        throw new Error('Not implemented');
+        const url = 'https://www.youtube.com/c/GitHub/videos';
+        return this.simple.waitForLoad(url);
     }
     async waitForElement() {
-        throw new Error('Not implemented');
+        const url = 'https://testpages.herokuapp.com/styled/progress-bars-sync.html';
+        const expectedText = 'Stopped';
+        return this.simple.waitForElement(url, expectedText);
     }
 }
