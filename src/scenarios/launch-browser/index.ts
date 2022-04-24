@@ -3,7 +3,7 @@ import { SeleniumLaunchBrowser } from './selenium';
 import { PuppeteerLaunchBrowser } from './puppeteer';
 import { WebdriverioLaunchBrowser } from './webdriverio';
 import { LaunchBrowser, LaunchBrowserRunner } from './base';
-import { getMethodsFromType } from '../../utils';
+import { getMethodsFromType } from '../../utils/reflection';
 
 export const name = 'launch-browser';
 export const description = 'Launching new instance of a web browser';

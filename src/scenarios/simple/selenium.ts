@@ -4,7 +4,7 @@ import { Simple } from './base';
 import * as fs from 'fs';
 import * as path from 'path';
 
-import * as seleniumUtils from '../../selenium';
+import * as seleniumUtils from '../../utils/selenium';
 const { runWithChrome } = seleniumUtils;
 
 export class SeleniumSimple extends Simple {

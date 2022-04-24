@@ -1,4 +1,4 @@
-import { LoggerBase } from '../../logger-base';
+import { LoggerBase } from '../../utils/logger-base';
 
 export class Simple extends LoggerBase {
     get name(): string {

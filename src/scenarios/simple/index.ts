@@ -1,7 +1,7 @@
 import { PlaywrightSimple } from './playwright';
 import { SeleniumSimple } from './selenium';
 import { Simple, SimpleRunner } from './base';
-import { getMethodsFromType } from '../../utils';
+import { getMethodsFromType } from '../../utils/reflection';
 
 export const name = 'simple';
 export const description = 'Simple scenarios of browser automation';
