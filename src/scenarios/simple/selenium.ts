@@ -1,8 +1,8 @@
 import * as seleniumWebdriver  from 'selenium-webdriver';
 const { Builder, Browser, By, until } = seleniumWebdriver;
 import { Simple } from './base';
-import fs from 'fs';
-import path from 'path';
+import * as fs from 'fs';
+import * as path from 'path';
 
 import 'chromedriver';
 
