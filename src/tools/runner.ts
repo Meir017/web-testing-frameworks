@@ -79,11 +79,18 @@ async function runImplementation(scenario: Scenario, implementationName: string)
     const runner = new scenario.runner(implementation);
     const methods = scenario.methods.map(method => <ScenarioFunction>runner[method].bind(runner));
 
+    const errors = [];
     for (const method of methods) {
         try {
             await method();
         } catch (error) {
+            errors.push({ name: method.name, error });
             // no-op
         }
+    }
+
+    if (errors.length) {
+        const errorMessage = errors.map(error => `${error.name}: ${error.error.message}`).join(os.EOL);
+        throw new Error(`${errors.length} errors occurred${os.EOL}${os.EOL}${errorMessage}`);
     }
 }
