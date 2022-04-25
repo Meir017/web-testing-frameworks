@@ -16,5 +16,5 @@ jobs:
         with:
           node-version: 16
       - run: npm i
-      - run: npx ts-node .\src\tools\runner.ts selenium simple:*
-      - run: npx ts-node .\src\tools\runner.ts selenium launch-browser:*
+      - run: npx ts-node ./src/tools/runner.ts selenium simple:*
+      - run: npx ts-node ./src/tools/runner.ts selenium launch-browser:*
