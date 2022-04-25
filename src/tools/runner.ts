@@ -1,10 +1,11 @@
 import { scenarios } from '../scenarios';
 import * as os from 'os';
+import { Scenario, ScenarioFunction } from '../scenarios/types';
 
 const implementations = new Set<string>();
 scenarios.forEach(scenario => scenario.implementations.forEach(implementation => implementations.add(implementation.name)));
 
-const scenarioMethods = [].concat(...scenarios.map(scenario => scenario.methods.map(method => `${scenario.name}:${method}`)));
+const scenarioMethods = [].concat(...scenarios.map(scenario => scenario.methods.map(method => `${scenario.name}:${method}`).concat(`${scenario.name}:*`)));
 
 const helpMessage = `Usage:
 npx ts-node src/runner.ts <implementation> <scenario-method>
@@ -38,9 +39,9 @@ if (!implementation) {
 
 const runner = new scenario.runner(implementation);
 
-const scenarioFunction: () => Promise<void> = runner[methodName].bind(runner);
+const runnerFunction: ScenarioFunction = methodName === '*' ? async () => await runImplementation(scenario, implementationName) : runner[methodName].bind(runner);
 
-scenarioFunction()
+runnerFunction()
     .then(() => {
         console.info('Scenario completed successfully');
         process.exit(0);
@@ -68,4 +69,21 @@ function isInvalidInput() {
 
 function formatOptions(options) {
     return [...options].map(x => `"${x}"`).join(`${os.EOL}  - `);
+}
+
+async function runImplementation(scenario: Scenario, implementationName: string) {
+    const implementation = scenario.implementations.find(i => i.name === implementationName);
+    if (!implementation) {
+        throw new Error(`Implementation ${implementationName} not found in scenario ${scenario.name}`);
+    }
+    const runner = new scenario.runner(implementation);
+    const methods = scenario.methods.map(method => <ScenarioFunction>runner[method].bind(runner));
+
+    for (const method of methods) {
+        try {
+            await method();
+        } catch (error) {
+            // no-op
+        }
+    }
 }
