@@ -8,4 +8,4 @@ export interface Scenario {
     runner: new (implementation: Implementation) => Implementation;
 }
 
-export type Implementation = { name: string };
+export type Implementation = { name: string } & { [method: Exclude<string, 'name'>]: () => Promise<void> };
