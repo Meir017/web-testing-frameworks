@@ -54,11 +54,6 @@ export class SeleniumSimple extends Simple {
         });
 
     }
-    async waitForLoad(url: string) {
-        return runWithChrome(async (driver) => {
-            await driver.get(url);
-        });
-    }
     async waitForElement(url: string, expectedText: string) {
         return runWithChrome(async (driver) => {
             await driver.get(url);

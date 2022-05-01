@@ -28,9 +28,6 @@ export class Simple extends LoggerBase {
     async formSubmission(url: string, parameters: FormSubmissionParameters) {
         throw new Error('Not implemented');
     }
-    async waitForLoad(url: string) {
-        throw new Error('Not implemented');
-    }
     async waitForElement(url: string, expectedText: string): Promise<string> {
         throw new Error('Not implemented');
     }
@@ -70,10 +67,6 @@ export class SimpleRunner {
             multipleSelect: ['ms2', 'ms3'],
             dropdown: 'dd5'
         });
-    }
-    async waitForLoad() {
-        const url = 'https://www.youtube.com/c/GitHub/videos';
-        return this.simple.waitForLoad(url);
     }
     async waitForElement() {
         const url = 'https://testpages.herokuapp.com/styled/progress-bars-sync.html';

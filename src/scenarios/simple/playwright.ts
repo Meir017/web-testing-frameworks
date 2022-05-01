@@ -44,11 +44,6 @@ export class PlaywrightSimple extends Simple {
         await page.selectOption('[name="dropdown"]', parameters.dropdown);
         await page.click('input[value="submit"]');
     }
-    async waitForLoad(url: string) {
-        const browser = await playwright.chromium.launch();
-        const page = await browser.newPage();
-        await page.goto(url);
-    }
     async waitForElement(url: string, expectedText: string) {
         const browser = await playwright.chromium.launch();
         const page = await browser.newPage();
