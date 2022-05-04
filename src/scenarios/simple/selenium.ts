@@ -57,7 +57,7 @@ export class SeleniumSimple extends Simple {
     async waitForElement(url: string, expectedText: string) {
         return runWithChrome(async (driver) => {
             await driver.get(url);
-            const element = await driver.wait(until.elementTextIs(driver.findElement(By.css('#status')), expectedText));
+            const element = await driver.wait(until.elementTextIs(await driver.findElement(By.css('#status')), expectedText));
             return await element.getText();
         });
     }
