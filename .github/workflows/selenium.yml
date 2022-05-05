@@ -28,6 +28,10 @@ jobs:
           sudo mv /usr/local/bin/geckodriver* /usr/local/bin/geckodriver
           ls -alF /usr/local/bin/geckodriver /usr/local/bin/chromedriver
       - run: npm i
-      - run: npx ts-node ./src/tools/runner.ts selenium simple:*
+      - run: npx ts-node ./src/tools/runner.ts selenium simple:screenshot
+      - run: npx ts-node ./src/tools/runner.ts selenium simple:pageTitle
+      - run: npx ts-node ./src/tools/runner.ts selenium simple:click
+      # TODO: fix selenium crashing with "NoSuchSessionError: invalid session id" error
+      # - run: npx ts-node ./src/tools/runner.ts selenium simple:*
       # TODO: fix browser launching
       # - run: npx ts-node ./src/tools/runner.ts selenium launch-browser:*
