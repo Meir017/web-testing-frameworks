@@ -77,13 +77,20 @@ async function runImplementation(scenario: Scenario, implementationName: string)
         throw new Error(`Implementation ${implementationName} not found in scenario ${scenario.name}`);
     }
     const runner = new scenario.runner(implementation);
-    const methods = scenario.methods.map(method => <ScenarioFunction>runner[method].bind(runner));
-
-    for (const method of methods) {
+    const errors = [];
+    for (const methodName of scenario.methods) {
+        const method = <ScenarioFunction>runner[methodName].bind(runner);
         try {
             await method();
+            console.info(`Scenario [${scenario.name}] method [${methodName}] completed successfully`);
         } catch (error) {
+            errors.push({ name: methodName, error });
             // no-op
         }
+    }
+
+    if (errors.length) {
+        const errorMessage = errors.map(error => `${error.name}: ${error.error.message}`).join(os.EOL);
+        throw new Error(`${errors.length} errors occurred${os.EOL}${os.EOL}${errorMessage}`);
     }
 }

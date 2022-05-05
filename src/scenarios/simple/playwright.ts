@@ -1,5 +1,6 @@
 import * as playwright from 'playwright';
-import { Simple } from './base';
+import { Simple, FormSubmissionParameters } from './base';
+
 
 export class PlaywrightSimple extends Simple {
     get name(): string {
@@ -28,25 +29,20 @@ export class PlaywrightSimple extends Simple {
         await page.click('#button03');
 
     }
-    async formSubmission(url: string) {
+    async formSubmission(url: string, parameters: FormSubmissionParameters) {
         const browser = await playwright.chromium.launch();
         const page = await browser.newPage();
         await page.goto(url);
-        await page.type('[name="username"]', 'John Doe');
-        await page.type('[name="password"]', '123456');
-        await page.type('[name="comments"]', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.');
-        await page.setInputFiles('[name="filename"]', './file1.txt');
-        await page.uncheck('[name="checkboxes[]"][value=cb3]');
-        await page.check('[name="checkboxes[]"][value=cb2]');
-        await page.check('[name="radioval"][value=rd1]');
-        await page.selectOption('[name="multipleselect[]"]', ['ms2', 'ms3']);
-        await page.selectOption('[name="dropdown"]', 'dd5');
+        await page.type('[name="username"]', parameters.username);
+        await page.type('[name="password"]', parameters.password);
+        await page.type('[name="comments"]', parameters.comments);
+        await page.setInputFiles('[name="filename"]', parameters.filename);
+        await page.uncheck(`[name="checkboxes[]"][value=${parameters.uncheckCheckbox}]`);
+        await page.check(`[name="checkboxes[]"][value=${parameters.checkCheckbox}]`);
+        await page.check(`[name="radioval"][value=${parameters.radioButton}]`);
+        await page.selectOption('[name="multipleselect[]"]', parameters.multipleSelect);
+        await page.selectOption('[name="dropdown"]', parameters.dropdown);
         await page.click('input[value="submit"]');
-    }
-    async waitForLoad(url: string) {
-        const browser = await playwright.chromium.launch();
-        const page = await browser.newPage();
-        await page.goto(url);
     }
     async waitForElement(url: string, expectedText: string) {
         const browser = await playwright.chromium.launch();

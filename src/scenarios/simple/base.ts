@@ -1,5 +1,17 @@
 import { LoggerBase } from '../../utils/logger-base';
 
+export interface FormSubmissionParameters {
+    username: string;
+    password: string;
+    comments: string;
+    filename: string;
+    checkCheckbox: string;
+    uncheckCheckbox: string;
+    radioButton: string;
+    multipleSelect: string[];
+    dropdown: string;
+}
+
 export class Simple extends LoggerBase {
     get name(): string {
         throw new Error('Not implemented');
@@ -13,10 +25,7 @@ export class Simple extends LoggerBase {
     async click(url: string) {
         throw new Error('Not implemented');
     }
-    async formSubmission(url: string) {
-        throw new Error('Not implemented');
-    }
-    async waitForLoad(url: string) {
+    async formSubmission(url: string, parameters: FormSubmissionParameters) {
         throw new Error('Not implemented');
     }
     async waitForElement(url: string, expectedText: string): Promise<string> {
@@ -47,11 +56,17 @@ export class SimpleRunner {
     }
     async formSubmission() {
         const url = 'https://testpages.herokuapp.com/styled/basic-html-form-test.html';
-        return this.simple.formSubmission(url);
-    }
-    async waitForLoad() {
-        const url = 'https://www.youtube.com/c/GitHub/videos';
-        return this.simple.waitForLoad(url);
+        return this.simple.formSubmission(url, {
+            username: 'John Doe',
+            password: '123456',
+            comments: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+            filename: './package.json',
+            checkCheckbox: 'cb3',
+            uncheckCheckbox: 'cb2',
+            radioButton: 'rd1',
+            multipleSelect: ['ms2', 'ms3'],
+            dropdown: 'dd5'
+        });
     }
     async waitForElement() {
         const url = 'https://testpages.herokuapp.com/styled/progress-bars-sync.html';
